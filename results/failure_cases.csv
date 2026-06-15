@@ -1,0 +1,4 @@
+case,expected_behavior,observed_failure_mode,lesson
+hand_contact_spent_before_push,reserve recovery contact,greedy planner falls after push,contacts must be budgeted over the episode
+narrow_support_with_box_lift,preserve balance margin,manipulation-only policy overcommits hands,balance and manipulation compete for contacts
+contact_dropout_during_recovery,switch to reserved backup contact,fixed quota has no recovery reserve,quota is not the same as budgeting

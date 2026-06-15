@@ -1,7 +1,5 @@
 # Novelty Decision
 
-Chosen thesis: Humanoid Contact Budgeting turns the seed bet into a mechanism: Budget contacts as scarce commitments across balance, manipulation, and recovery.
+Decision: STRONG_REVISE
 
-New central mechanism: Humanoid contact budgeting keeps action-critical alternatives explicit until a physical observation collapses them.
-
-Decision: proceed as a revise/workshop-strength ICLR-style draft with synthetic but runnable evidence.
+The v4 rebuild supports the narrower contact-budgeting boundary against risk-aware, MPC, CBF, learned residual, quota, and greedy baselines. The claim remains incomplete without real humanoid or external high-fidelity evidence.

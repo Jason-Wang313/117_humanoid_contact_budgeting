@@ -1,12 +1,19 @@
 # Final Audit
 
-1. Chosen thesis: Humanoid Contact Budgeting explores `Budget contacts as scarce commitments across balance, manipulation, and recovery.` for humanoid contact planning.
-2. ICLR-main decision: KILL_ARCHIVE.
-3. Submission-hardening version: v3.
-4. Reason: synthetic-only, template-generated evidence cannot support ICLR main-conference robotics claims.
-5. Closest hostile prior work: see `docs/hostile_prior_work.md`, `docs/hostile_prior_work_100_cards.csv`, and `docs/hostile_reviewer_response.md`.
-6. Reproducibility: synthetic code runs, but no real robot or high-fidelity benchmark is reproduced.
-7. Claim-validity status: main-conference claims killed; archive memo retained.
-8. Exact Downloads PDF path: `C:/Users/wangz/Downloads/117.pdf`
-9. GitHub URL: https://github.com/Jason-Wang313/117_humanoid_contact_budgeting
-10. Confirmation: no visible Desktop copy was requested or made.
+Paper: 117 humanoid_contact_budgeting
+
+Submission-hardening version: v4
+
+Terminal decision: STRONG_REVISE
+
+Key results:
+- Success: `0.699 +/- 0.007` proposed vs `0.592 +/- 0.008` strongest baseline.
+- Paired difference: `0.107 +/- 0.010`; wins `7/7`.
+- Budget-violation delta: `-0.090`.
+- Fall-rate delta: `-0.047`.
+- Balance-margin delta: `+0.084`.
+- Recovery-success delta: `+0.090`.
+- Energy/contact-cost delta: `-0.030`.
+- Best ablation gap: `0.045`.
+
+Remaining risk: local benchmark only; no real humanoid or external high-fidelity validation.

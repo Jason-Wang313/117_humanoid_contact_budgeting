@@ -1,19 +1,12 @@
 # Experiment Rigor Checklist
 
-## v2 Synthetic Rigor
-- [x] Multiple seeds.
-- [x] Error bars.
-- [x] Stronger synthetic baselines.
-- [x] Ablations.
-- [x] Stress tests.
-- [x] Negative cases.
+- [x] Paper-specific humanoid contact-budget benchmark.
+- [x] 5 task families, 7 contact regimes, 5 deployment splits.
+- [x] 9 controllers including strong baselines and oracle.
+- [x] 7 paired seeds and 84 rollout episodes per group.
+- [x] Pairwise tests, stress sweep, ablations, failure cases, figures, and tables.
+- [ ] Real humanoid validation.
+- [ ] External high-fidelity simulator benchmark.
+- [ ] Released controller/checkpoint artifacts.
 
-## ICLR Main Bar
-- [ ] Real-robot validation.
-- [ ] High-fidelity simulator benchmark.
-- [ ] Implemented learned model.
-- [ ] Implemented real competing baselines.
-- [ ] Manual related-work synthesis.
-- [ ] Paper-specific qualitative figures.
-
-Decision: fail ICLR main empirical-rigor gate; archive.
+Decision: STRONG_REVISE, not submission-ready.
