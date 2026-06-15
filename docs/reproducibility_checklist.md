@@ -1,7 +1,7 @@
 # Reproducibility Checklist
 
 - [x] Deterministic benchmark with fixed seed.
-- [x] Raw metrics, aggregates, pairwise stats, ablations, stress sweep, failure cases, figures, and tables.
+- [x] Raw metrics, aggregates, pairwise stats, ablations, task/regime/seed stress sweep, eight failure cases, figures, and tables.
 - [ ] Hardware/video artifacts.
 - [ ] External benchmark scripts.
 - [ ] Controller/checkpoint release.
