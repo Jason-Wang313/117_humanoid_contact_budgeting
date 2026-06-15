@@ -2,3 +2,8 @@ case,expected_behavior,observed_failure_mode,lesson
 hand_contact_spent_before_push,reserve recovery contact,greedy planner falls after push,contacts must be budgeted over the episode
 narrow_support_with_box_lift,preserve balance margin,manipulation-only policy overcommits hands,balance and manipulation compete for contacts
 contact_dropout_during_recovery,switch to reserved backup contact,fixed quota has no recovery reserve,quota is not the same as budgeting
+unexpected_push_after_manipulation_commitment,retain a recovery reserve for disturbances,risk-aware planner has already spent stabilizing contacts,"contact value is temporal, not just local risk"
+body_contact_overuse_on_low_friction_surface,treat body contact as scarce and unreliable,whole-body MPC leans into a contact that slips,additional contacts can increase fall risk under unreliability
+footstep_budget_starves_hand_task,allocate contacts across locomotion and manipulation,support-preserving controller cannot complete the hand task,balance safety and task progress compete for the same budget
+recovery_reserve_unused_under_easy_nominal_runs,avoid over-conservatism when contact scarcity is low,fixed reserve slows easy deployments,budgeting needs context-dependent release rules
+oracle_gap_under_compound_contact_scarcity,approach oracle contact scheduling at maximum stress,oracle remains substantially better when contact dropout and push stress compound,local contact budgeting is useful but not saturated

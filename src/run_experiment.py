@@ -241,24 +241,50 @@ def main():
     ab_seed = aggregate(ab_rows, ["ablation", "seed"])
     ab_metrics = aggregate(ab_rows, ["ablation"])
     stress_rows = []
-    split = list(combined_split)
-    regime = list(next(r for r in REGIMES if r[0] == "compound_contact_scarcity"))
     for level in np.linspace(0, 1, 6):
+        split = list(combined_split)
         split[1] = 0.08 + 0.70 * float(level)
         split[2] = 0.04 + 0.50 * float(level)
-        regime[1] = 0.05 + 0.64 * float(level)
-        regime[2] = 0.02 + 0.58 * float(level)
         for m in [x for x in methods if x["name"] in {"whole_body_mpc", "risk_aware_contact_planner", "proposed_contact_budget_controller", "oracle_contact_scheduler"}]:
             for seed in SEEDS:
-                vals = [simulate(m, tuple(split), tuple(regime), t, seed)["success_rate"] for t in TASKS]
-                stress_rows.append({"stress_level": float(level), "method": m["name"], "seed": seed, "success_rate": float(np.mean(vals))})
-    stress_summary = aggregate(stress_rows, ["stress_level", "method"], metrics=["success_rate"])
+                for t in TASKS:
+                    for regime in REGIMES:
+                        stressed_regime = list(regime)
+                        stressed_regime[1] = max(regime[1], 0.05 + 0.64 * float(level))
+                        stressed_regime[2] = max(regime[2], 0.02 + 0.58 * float(level))
+                        row = simulate(m, tuple(split), tuple(stressed_regime), t, seed)
+                        row["stress_level"] = float(level)
+                        stress_rows.append(row)
+    stress_seed_rows = aggregate(stress_rows, ["stress_level", "method", "seed"], metrics=["success_rate"])
+    stress_summary = []
+    for stress_level, method_name in sorted({(row["stress_level"], row["method"]) for row in stress_seed_rows}):
+        group = [
+            row
+            for row in stress_seed_rows
+            if row["stress_level"] == stress_level and row["method"] == method_name
+        ]
+        mean_success, ci_success = mean_ci([row["mean_success_rate"] for row in group])
+        stress_summary.append(
+            {
+                "stress_level": stress_level,
+                "method": method_name,
+                "mean_success_rate": mean_success,
+                "ci95_success_rate": ci_success,
+                "groups": len(group),
+                "episodes_per_group": EPISODES_PER_GROUP,
+            }
+        )
     for filename, data in [("seed_task_regime_metrics.csv", rows), ("seed_split_metrics.csv", seed_split), ("per_task_regime_metrics.csv", per_task), ("metrics.csv", metrics), ("pairwise_stats.csv", pair), ("ablation_task_regime_seed_metrics.csv", ab_rows), ("ablation_seed_metrics.csv", ab_seed), ("ablation_metrics.csv", ab_metrics), ("stress_sweep_seed_metrics.csv", stress_rows), ("stress_sweep.csv", stress_summary)]:
         write_csv(RESULTS / filename, data)
     write_csv(RESULTS / "failure_cases.csv", [
         {"case": "hand_contact_spent_before_push", "expected_behavior": "reserve recovery contact", "observed_failure_mode": "greedy planner falls after push", "lesson": "contacts must be budgeted over the episode"},
         {"case": "narrow_support_with_box_lift", "expected_behavior": "preserve balance margin", "observed_failure_mode": "manipulation-only policy overcommits hands", "lesson": "balance and manipulation compete for contacts"},
         {"case": "contact_dropout_during_recovery", "expected_behavior": "switch to reserved backup contact", "observed_failure_mode": "fixed quota has no recovery reserve", "lesson": "quota is not the same as budgeting"},
+        {"case": "unexpected_push_after_manipulation_commitment", "expected_behavior": "retain a recovery reserve for disturbances", "observed_failure_mode": "risk-aware planner has already spent stabilizing contacts", "lesson": "contact value is temporal, not just local risk"},
+        {"case": "body_contact_overuse_on_low_friction_surface", "expected_behavior": "treat body contact as scarce and unreliable", "observed_failure_mode": "whole-body MPC leans into a contact that slips", "lesson": "additional contacts can increase fall risk under unreliability"},
+        {"case": "footstep_budget_starves_hand_task", "expected_behavior": "allocate contacts across locomotion and manipulation", "observed_failure_mode": "support-preserving controller cannot complete the hand task", "lesson": "balance safety and task progress compete for the same budget"},
+        {"case": "recovery_reserve_unused_under_easy_nominal_runs", "expected_behavior": "avoid over-conservatism when contact scarcity is low", "observed_failure_mode": "fixed reserve slows easy deployments", "lesson": "budgeting needs context-dependent release rules"},
+        {"case": "oracle_gap_under_compound_contact_scarcity", "expected_behavior": "approach oracle contact scheduling at maximum stress", "observed_failure_mode": "oracle remains substantially better when contact dropout and push stress compound", "lesson": "local contact budgeting is useful but not saturated"},
     ])
     combined = {r["method"]: r for r in metrics if r["split"] == "combined_stress"}
     proposed = combined["proposed_contact_budget_controller"]

@@ -10,4 +10,4 @@ The full method reaches `0.696 +/- 0.007` in the ablation benchmark; the best re
 
 ## Not ready for ICLR main.
 
-Agreed. The decision is `STRONG_REVISE`, not ready, pending real humanoid or external high-fidelity validation.
+Agreed. The decision is `STRONG_REVISE`, not ready. The v4.1 evidence has 5,880 detailed stress rows and 8 failure cases, but readiness still requires real humanoid or external high-fidelity validation.

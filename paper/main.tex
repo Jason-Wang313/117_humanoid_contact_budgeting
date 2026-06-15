@@ -6,6 +6,8 @@
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{microtype}
+\raggedbottom
 
 \title{Humanoid Contact Budgeting}
 \author{Anonymous Authors}
@@ -14,7 +16,7 @@
 \maketitle
 
 \begin{abstract}
-Humanoid robots often treat contacts as local constraints: a handhold, footstep, brace, or recovery touch is chosen because it is immediately feasible. Under long-horizon manipulation and recovery, however, contacts are scarce commitments. Spending too many stabilizing contacts early can leave no reserve for a later manipulation or fall-recovery event. We study contact budgeting as an episode-level control problem in a local benchmark with 5 humanoid task families, 7 contact-stress regimes, 5 deployment splits, 9 controllers, 7 paired seeds, and 84 rollout episodes per group. Under combined stress, the proposed contact-budget controller reaches $0.699 \pm 0.007$ success versus $0.592 \pm 0.008$ for the strongest non-oracle baseline, a risk-aware contact planner. The paired gain is $0.107 \pm 0.010$ with wins on 7/7 seeds. The controller also reduces contact-budget violations, falls, and energy/contact cost while improving balance margin and recovery success. Ablations show that the contact-cost model, recovery reserve, manipulation reserve, balance-margin term, and episode-level budget all matter. This is strong local evidence for rebuilding the paper, but not final ICLR-main readiness without real humanoid or external high-fidelity validation.
+Humanoid robots often treat contacts as local constraints: a handhold, footstep, brace, or recovery touch is chosen because it is immediately feasible. Under long-horizon manipulation and recovery, however, contacts are scarce commitments. Spending too many stabilizing contacts early can leave no reserve for a later manipulation or fall-recovery event. We study contact budgeting as an episode-level control problem in a v4.1 local benchmark with 5 humanoid task families, 7 contact-stress regimes, 5 deployment splits, 9 controllers, 7 paired seeds, 84 rollout episodes per group, 5,880 task/regime/seed stress rows, and 8 documented failure cases. Under combined stress, the proposed contact-budget controller reaches $0.699 \pm 0.007$ success versus $0.592 \pm 0.008$ for the strongest non-oracle baseline, a risk-aware contact planner. The paired gain is $0.107 \pm 0.010$ with wins on 7/7 seeds. The controller also reduces contact-budget violations, falls, and energy/contact cost while improving balance margin and recovery success. Ablations show that the contact-cost model, recovery reserve, manipulation reserve, balance-margin term, and episode-level budget all matter. This is strong local evidence for rebuilding the paper, but not final ICLR-main readiness without real humanoid or external high-fidelity validation.
 \end{abstract}
 
 \section{Motivation}
@@ -44,9 +46,11 @@ The local benchmark contains five humanoid task families: bimanual drawer openin
 
 Baselines include no-budget planning, greedy contact planning, fixed contact quotas, whole-body MPC, CBF safety control, learned residual contact policy, risk-aware contact planning, the proposed controller, and an oracle contact scheduler. Metrics include task success, budget violation, fall rate, balance margin, manipulation completion, recovery success, energy/contact cost, and paired-seed wins.
 
+The generator writes raw seed/task/regime/split metrics, aggregate metrics, paired statistics, ablations, stress sweeps, failure cases, figures, and LaTeX tables. The v4.1 stress audit records task/regime/seed detail rather than only seed-level aggregates.
+
 \section{Results}
 
-Table~\ref{tab:combined} reports the combined-stress benchmark. The strongest non-oracle baseline is \texttt{risk\_aware\_contact\_planner}. The proposed controller improves success by $0.107 \pm 0.010$, reduces contact-budget violation by $0.090$, reduces fall rate by $0.047$, improves balance margin by $0.084$, improves recovery success by $0.090$, and lowers energy/contact cost by $0.030$.
+Table~\ref{tab:combined} reports the combined-stress benchmark. The strongest non-oracle baseline is risk-aware contact planning. The proposed controller improves success by $0.107 \pm 0.010$, reduces contact-budget violation by $0.090$, reduces fall rate by $0.047$, improves balance margin by $0.084$, improves recovery success by $0.090$, and lowers energy/contact cost by $0.030$.
 
 \begin{table}[t]
 \centering
@@ -85,7 +89,7 @@ Table~\ref{tab:ablation} shows that all major components contribute. The full co
 \end{table}
 
 \paragraph{Stress sweep.}
-Figure~\ref{fig:stress} increases contact scarcity and unreliability. The proposed controller degrades more gracefully than greedy planning, fixed quotas, whole-body MPC, and risk-aware contact planning, although it remains below the oracle scheduler.
+Figure~\ref{fig:stress} increases contact scarcity and unreliability over 5,880 task/regime/seed rows. The proposed controller degrades more gracefully than greedy planning, fixed quotas, whole-body MPC, and risk-aware contact planning, although it remains below the oracle scheduler. At maximum stress, the proposed controller reaches $0.647 \pm 0.004$ success versus $0.509 \pm 0.005$ for risk-aware contact planning and $0.768 \pm 0.005$ for the oracle.
 
 \begin{figure}[t]
 \centering
@@ -93,6 +97,10 @@ Figure~\ref{fig:stress} increases contact scarcity and unreliability. The propos
 \caption{Stress sweep over contact scarcity and unreliability.}
 \label{fig:stress}
 \end{figure}
+
+\section{Failure Cases}
+
+The failure-case audit records eight boundaries: hand contacts spent before later pushes, narrow support during lifting, contact dropout during recovery, unexpected pushes after manipulation commitments, body-contact overuse on low-friction surfaces, footstep budgets starving hand tasks, over-conservative recovery reserves in easy nominal runs, and remaining oracle headroom under compound contact scarcity. These cases require real humanoid experiments, external high-fidelity validation, released controller artifacts, and hardware videos before this can be treated as submission-ready.
 
 \section{Related Work Boundary}
 
@@ -102,7 +110,10 @@ Humanoid contact planning is crowded. Recent work studies humanoid manipulation 
 
 The evidence is local and generated by the released benchmark. It is much stronger than the archive scaffold because it includes paired seeds, stress regimes, mechanism metrics, ablations, negative cases, and strongest-baseline comparison. It still lacks real humanoid experiments, external high-fidelity simulator validation, hardware videos, and independent implementations of all baselines. The honest terminal state is therefore \textbf{STRONG\_REVISE}: the paper is worth rebuilding aggressively, but it is not yet an ICLR-main-ready submission.
 
+\begingroup
+\raggedright
 \bibliographystyle{iclr2026_conference}
 \bibliography{references}
+\endgroup
 
 \end{document}
