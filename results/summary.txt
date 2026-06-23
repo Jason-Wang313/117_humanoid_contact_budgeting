@@ -1,33 +1,9 @@
-Paper 117 humanoid contact-budgeting local evidence rebuild
-Design: 5 humanoid task families x 7 contact regimes x 5 deployment splits x 9 controllers, 7 seeds, 84 rollout episodes per group.
-Terminal decision: STRONG_REVISE
-Strongest non-oracle baseline under combined stress: risk_aware_contact_planner
-Proposed combined-stress success: 0.699 +/- 0.007
-Strongest baseline combined-stress success: 0.592 +/- 0.008
-Pairwise proposed-minus-strongest success diff: 0.107 +/- 0.010; wins=7/7
-Budget-violation delta: -0.090
-Fall-rate delta: -0.047
-Balance-margin delta: 0.084
-Recovery-success delta: 0.090
-Energy/contact-cost delta: -0.030
-Ablation margin over best removed component (minus_contact_cost_model): 0.045
-Gate results:
-- success_margin_ge_0.030: True
-- budget_violation_delta_le_-0.020: True
-- fall_rate_delta_le_-0.020: True
-- balance_margin_delta_ge_0.020: True
-- recovery_success_delta_ge_0.020: True
-- energy_contact_cost_delta_le_0: True
-- paired_seed_wins_ge_5: True
-- ablation_margin_ge_0.020: True
-
-Combined-stress ranking:
-- oracle_contact_scheduler: success=0.793 +/- 0.007; violation=0.051; fall=0.026; balance=0.699; recovery=0.653; cost=0.183
-- proposed_contact_budget_controller: success=0.699 +/- 0.007; violation=0.108; fall=0.056; balance=0.626; recovery=0.582; cost=0.230
-- risk_aware_contact_planner: success=0.592 +/- 0.008; violation=0.198; fall=0.102; balance=0.542; recovery=0.492; cost=0.260
-- learned_residual_contact_policy: success=0.559 +/- 0.009; violation=0.297; fall=0.156; balance=0.487; recovery=0.469; cost=0.229
-- whole_body_mpc: success=0.546 +/- 0.008; violation=0.267; fall=0.136; balance=0.503; recovery=0.447; cost=0.253
-- cbf_safety_controller: success=0.534 +/- 0.008; violation=0.222; fall=0.113; balance=0.522; recovery=0.429; cost=0.280
-- fixed_contact_quota: success=0.460 +/- 0.010; violation=0.364; fall=0.178; balance=0.437; recovery=0.378; cost=0.195
-- greedy_contact_planner: success=0.393 +/- 0.010; violation=0.480; fall=0.233; balance=0.375; recovery=0.330; cost=0.185
-- no_budget_planner: success=0.311 +/- 0.008; violation=0.361; fall=0.205; balance=0.315; recovery=0.260; cost=0.144
+Paper 117 v5_expanded
+terminal_decision: STRONG_REVISE
+iclr_main_ready: False
+proposed: dual_price_contact_budget_controller_v5
+strongest_non_oracle: proposed_contact_budget_controller_v4_1
+hard_success: 0.78640 vs 0.72415
+hard_utility: 0.95300 vs 0.76795
+strict_fixed_budget_coverage: 0.87266
+strict_fixed_budget_breach: 0.00000

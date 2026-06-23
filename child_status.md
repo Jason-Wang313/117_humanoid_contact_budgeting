@@ -1,20 +1,24 @@
 # Child Status 117
 
-Current stage: ICLR main gate terminal
-Last update: 2026-06-15 20:33:57 +0100
+Current stage: v5 expanded submission-hardening audit complete
+Last update: 2026-06-23 16:54:00 +0800
 PDF: C:/Users/wangz/Downloads/117.pdf
-PDF SHA256: 3920B1A4B6D34FE54A24709536986318E82199AC4E9F2448A9B20308E53820EB
-PDF size: 379113 bytes
+PDF SHA256: A71C65D2A0E03183855F8CE57166D37237EBD99379A196C3C2939AD6F76BD6DE
+PDF size: 849152 bytes
+PDF pages: 28
 Desktop copy present: no
 GitHub: https://github.com/Jason-Wang313/117_humanoid_contact_budgeting
-Submission-hardening version: v4.1
+Submission-hardening version: v5_expanded
 Terminal decision: STRONG_REVISE
 ICLR main ready: no
 
 Evidence digest:
-- Proposed contact-budget controller beats `risk_aware_contact_planner` by `0.107 +/- 0.010` combined-stress success with `7/7` paired-seed wins.
-- Budget violations, falls, and energy/contact cost decrease; balance margin and recovery success increase.
-- Best ablation trails the full method by `0.045` success.
-- Stress sweep now covers `5,880` task/regime/seed rows and `24` aggregate rows.
-- Failure-case documentation now covers `8` humanoid contact-budgeting boundaries.
-- Remaining blocker: no real humanoid or external high-fidelity benchmark validation.
+- Proposed `dual_price_contact_budget_controller_v5` beats strongest non-oracle `proposed_contact_budget_controller_v4_1`.
+- Hard success is `0.78640` vs `0.72415`; hard utility is `0.95300` vs `0.76795`.
+- Paired hard-utility gain is `0.18505` with `10/10` seed wins.
+- Budget violation, fall rate, energy/contact cost, reserve starvation, contact overuse, and calibration error decrease.
+- Balance margin and recovery success increase.
+- Strict fixed-budget coverage is `0.87266` with breach `0.00000`.
+- Generated evidence includes `230,400` main cells, `38,400` ablation cells, `161,280` stress cells, `107,520` fixed-budget cells, and `24` failure cases.
+- Visual PDF QA passed on title/results/gate/failure/artifact/reference pages.
+- Remaining blocker: no real humanoid or accepted high-fidelity validation, released controller/checkpoint artifacts, calibrated logs, hardware videos, or complete manual related-work synthesis.

@@ -1,0 +1,12 @@
+baseline,mean_success_diff,ci95_success_diff,mean_utility_diff,ci95_utility_diff,paired_success_wins,paired_utility_wins,non_oracle
+cbf_safety_controller,0.223555,0.000323,0.616834,0.000414,10,10,True
+chance_constrained_contact_mpc,0.137524,0.000273,0.416944,0.000348,10,10,True
+fixed_contact_quota,0.301314,0.000326,0.898002,0.000399,10,10,True
+greedy_contact_planner,0.376840,0.000381,1.191390,0.000466,10,10,True
+learned_residual_contact_policy,0.197674,0.000210,0.666222,0.000269,10,10,True
+no_budget_planner,0.466401,0.000316,1.244133,0.000406,10,10,True
+oracle_contact_scheduler,-0.099267,0.000313,-0.219515,0.000340,0,0,False
+proposed_contact_budget_controller_v4_1,0.062250,0.000355,0.185046,0.000368,10,10,True
+recovery_reserve_controller,0.111213,0.000261,0.322386,0.000288,10,10,True
+risk_aware_contact_planner,0.148267,0.000340,0.446265,0.000412,10,10,True
+whole_body_mpc,0.217413,0.000252,0.646296,0.000324,10,10,True

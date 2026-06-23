@@ -1,9 +1,0 @@
-baseline,mean_success_diff,ci95_success_diff,paired_seed_wins,non_oracle,decisive
-cbf_safety_controller,0.164966,0.007608,7,True,True
-fixed_contact_quota,0.238338,0.009629,7,True,True
-greedy_contact_planner,0.306074,0.011190,7,True,True
-learned_residual_contact_policy,0.139990,0.012202,7,True,True
-no_budget_planner,0.387707,0.008752,7,True,True
-oracle_contact_scheduler,-0.094412,0.004897,0,False,False
-risk_aware_contact_planner,0.107191,0.009804,7,True,True
-whole_body_mpc,0.152770,0.005120,7,True,True
